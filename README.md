@@ -64,12 +64,12 @@ API can be tested at - [Swagger](http://localhost:3030/docs/?url=/docs) - after 
 ```
 {
   "auctionId" : "Auction Id",
-   "bidderId" : "bidder's user id",
-   "upperLimit" : "Amount upper limit of bidder",
-    "bidIncrementByBidder" : "bid increament value of a bidder",
-    "isAuto" : "true", // true or false
-    "cutOffTime" : "cutoff time in miliseconds",
-    "numOfAllowedBids" : "number of max allowed bids",
+  "bidderId" : "bidder's user id",
+  "upperLimit" : "Amount upper limit of bidder",
+  "bidIncrementByBidder" : "bid increament value of a bidder",
+  "isAuto" : "true", // true or false
+  "cutOffTime" : "cutoff time in miliseconds",
+  "numOfAllowedBids" : "number of max allowed bids",
 	"placedBidByBidder" : "Amount of placed bid by bidders "
 }
 ```
