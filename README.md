@@ -38,7 +38,45 @@ RDB_HOST: IP on which your rethinkdb server is running (compulsory)
 
 RDB_PORT: client driver connection port of your rethinkdb server (compulsory)
 
+## API references 
 
+API can be tested at - [Swagger](http://localhost:3030/docs/?url=/docs) - after you successfully start the project
+
+## API Example
+
+### To create a new Auction
+```
+{
+  "BidIncrementedBy": "bid increament value",
+  "EndBidDate": "end date in miliseconds",
+  "StartingBid": "starting bid value",
+  "UpperLimitBid": "upper limit of biddding value",
+  "content": "content for the product",
+  "currency": "currency" // $ or £ or ₹ ,
+  "endOfAuctionMethod": "1", 
+  "isBidEnds": "no",
+  "owner": "ownar id",
+  "product_sku": "sku no of product",
+  "title": "title of the auction item"
+}
+```
+### To place a new Bid
+```
+{
+  "auctionId" : "Auction Id",
+   "bidderId" : "bidder's user id",
+   "upperLimit" : "Amount upper limit of bidder",
+    "bidIncrementByBidder" : "bid increament value of a bidder",
+    "isAuto" : "true", // true or false
+    "cutOffTime" : "cutoff time in miliseconds",
+    "numOfAllowedBids" : "number of max allowed bids",
+	"placedBidByBidder" : "Amount of placed bid by bidders "
+}
+```
+
+## Run with Docker
+
+To run the project from docker you need to clone the project and run `docker-compose up`
 
 ## Prerequisites
 
