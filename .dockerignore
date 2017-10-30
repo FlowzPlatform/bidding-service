@@ -1,0 +1,7 @@
+.gitignore
+.npmignore
+node_modules
+Jenkins_dev
+Jenkins_master
+LICENSE
+README.md

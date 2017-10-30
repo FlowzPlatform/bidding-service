@@ -1,0 +1,17 @@
+version: '2'
+services:
+  RethinkDb:
+    image: rethinkdb
+    ports:
+    - 8080:8080
+    - 28015:28015
+    - 29015:29015
+    restart: unless-stopped
+
+  bidding-server:
+    image: fl0wz/bidding_backend_service
+    links:
+    - RethinkDb:biddingDb
+    ports:
+    - 3030:3030
+    restart: unless-stopped

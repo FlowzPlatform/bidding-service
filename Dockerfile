@@ -1,4 +1,4 @@
-FROM node:8.1.2
+FROM node:alpine
 
 ADD . /usr/src/app/
 
