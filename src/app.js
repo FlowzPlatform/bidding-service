@@ -1,0 +1,70 @@
+const path = require('path');
+const favicon = require('serve-favicon');
+const compress = require('compression');
+const cors = require('cors');
+const helmet = require('helmet');
+const bodyParser = require('body-parser');
+const r = require('rethinkdb');
+const feathers = require('feathers');
+const configuration = require('feathers-configuration');
+const hooks = require('feathers-hooks');
+const rest = require('feathers-rest');
+
+const primus = require('feathers-primus');
+const middleware = require('./middleware');
+const services = require('./services');
+const appHooks = require('./app.hooks');
+const memory = require('feathers-memory');
+const rethinkdb = require('./rethinkdb');
+const auth = require('feathers-authentication');
+const jwt = require('feathers-authentication-jwt');
+
+const socketio = require('feathers-socketio');
+const app = feathers();
+
+app.configure(rest());
+app.configure(auth({ secret: 'abcdefgabcdefg' }));
+// app.configure(jwt({service : "biddingfeathers"}));
+// app.configure(jwt({service : "bid-management-all-auction-service"}));
+// app.configure(jwt({service : "bid-management-all-bids-service"}));
+// app.configure(jwt({service : "bid-management-all-users"}));
+app.configure(jwt({service : "auctions"}));
+app.configure(jwt({service : "bids"}));
+app.configure(jwt({service : "users"}));
+// app.use('/users', memory())
+// Load app configuration
+app.configure(configuration(path.join(__dirname, '..')));
+// Enable CORS, security, compression, favicon and body parsing
+app.use(cors());
+app.use(helmet());
+app.use(compress());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(favicon(path.join(app.get('public'), 'favicon.ico')));
+// Host the public folder
+app.use('/', feathers.static(app.get('public')));
+
+
+// Set up Plugins and providers
+app.configure(hooks());
+app.configure(rethinkdb);
+
+// app.configure(primus({ transformer: 'websockets' }, function(primus) {
+//     // Set up Primus authorization here
+//     primus.authorize(function (req, done) {
+//       // req.feathers.data = 'Hello world';
+//       //
+//       // done();
+//     });
+//   }));
+
+app.configure(socketio());
+
+
+// Set up our services (see `services/index.js`)
+app.configure(services);
+// Configure middleware (see `middleware/index.js`) - always has to be last
+app.configure(middleware);
+app.hooks(appHooks);
+
+module.exports = app;
