@@ -8,6 +8,6 @@ RUN npm install
 RUN npm install rethinkdb-job-queue -s
 
 
-EXPOSE 3030
+EXPOSE 3035
 
 CMD NODE_ENV=production npm start
