@@ -44,6 +44,7 @@
     "feathers-rethinkdb": "^0.4.2",
     "feathers-socketio": "^2.0.0",
     "feathers-swagger": "^0.4.0",
+    "fs": "0.0.1-security",
     "helmet": "^3.6.0",
     "nedb": "^1.8.0",
     "path": "^0.12.7",
