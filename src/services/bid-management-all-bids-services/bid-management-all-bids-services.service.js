@@ -13,10 +13,12 @@ const rest = require('feathers-rest');
 const bodyParser = require('body-parser');
 const r = require('rethinkdb');
 const config = require('config');
+const fs = require('fs');
 
 const featherApp = feathers();
 let checkStatus = true;
-
+let ssl = process.env.cert ? { ca: fs.readFileSync(__dirname+process.env.cert) } : null
+let rauth = process.env.rauth ? process.env.rauth : null
 module.exports = function() {
     const app = this;
     const Model = app.get('rethinkdbClient');
@@ -33,6 +35,8 @@ module.exports = function() {
     r.connect({
         host: config.get('rdb_host'),
         port: config.get('rdb_port'),
+        authKey: rauth,
+        ssl: ssl,
         db: config.get('rdb_db')
     }, function(err, conn) {
         if (err) throw err;

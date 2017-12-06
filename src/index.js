@@ -3,7 +3,9 @@ const logger = require('winston');
 const app = require('./app');
 const port = app.get('port');
 const server = app.listen(port);
-
+const fs = require('fs');
+let ssl = process.env.cert ? { ca: fs.readFileSync(__dirname+process.env.cert) } : null
+let rauth = process.env.rauth ? process.env.rauth : null
 process.on('unhandledRejection', (reason, p) =>
   logger.error('Unhandled Rejection at: Promise ', p, reason)
 );
@@ -23,6 +25,8 @@ function fetchNewData(){
   r.connect({
     host: config.get('rdb_host'),
     port: config.get('rdb_port'),
+    authKey: rauth,
+    ssl: ssl,
     db: config.get('rdb_db')
   }, function(err, conn) {
       if (err) throw err;

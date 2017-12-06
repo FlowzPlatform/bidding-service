@@ -12,6 +12,7 @@ module.exports = function () {
   app.set('rdb_port',config2.get("rdb_port"));
   app.set('rdb_db',config2.get("rdb_db"));
   app.set('rethinkdbClient', r);
+  
 
   app.setup = function (...args) {
     let promise = Promise.resolve();

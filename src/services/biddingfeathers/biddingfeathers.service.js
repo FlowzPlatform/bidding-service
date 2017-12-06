@@ -5,6 +5,10 @@ const jwt = require('feathers-authentication-jwt');
 const feathers = require('feathers');
 const hooks = require('feathers-hooks');
 const r = require('rethinkdb');
+const fs = require('fs');
+
+let ssl = process.env.cert ? { ca: fs.readFileSync(__dirname+process.env.cert) } : null
+let rauth = process.env.rauth ? process.env.rauth : null
 module.exports = function () {
   const app = this;
   const Model = app.get('rethinkdbClient');
@@ -17,10 +21,16 @@ module.exports = function () {
 
   let checkStatus = true;
   let connection ;
-  r.connect({ host: app.get('rdb_host'), port: app.get('rdb_port'), db : app.get('rdb_db') }, function(err, conn) {
-    if(err) throw err;
+  r.connect({
+    host: config.get('rdb_host'),
+    port: config.get('rdb_port'),
+    authKey: rauth,
+    ssl: ssl,
+    db: config.get('rdb_db')
+}, function(err, conn) {
+    if (err) throw err;
     connection = conn
-  })
+})
 
   // Initialize our service with any options it requires
   app.use('/biddingfeathers', createService(options));

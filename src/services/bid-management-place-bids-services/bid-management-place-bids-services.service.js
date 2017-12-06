@@ -12,7 +12,10 @@ const bodyParser = require('body-parser');
 const r = require('rethinkdb');
 const config = require('config');
 let  connection ;
+const fs = require('fs');
 
+let ssl = process.env.cert ? { ca: fs.readFileSync(__dirname+process.env.cert) } : null
+let rauth = process.env.rauth ? process.env.rauth : null
 
 module.exports = function() {
   const app = this;
@@ -20,6 +23,8 @@ module.exports = function() {
   r.connect({
     host: config.get('rdb_host'),
     port: config.get('rdb_port'),
+    authKey: rauth,
+    ssl: ssl,
     db: config.get('rdb_db')
   }, function(err, conn) {
       if (err) throw err;
