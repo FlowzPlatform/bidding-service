@@ -8,7 +8,10 @@ const feathers = require('feathers');
 const r = require('rethinkdb');
 const config = require('config');
 const path = require('path');
+const fs = require('fs');
 
+let ssl = process.env.cert ? { ca: fs.readFileSync(__dirname+process.env.cert) } : null
+let rauth = process.env.rauth ? process.env.rauth : null
 const swagger = require('feathers-swagger');
 const rest = require('feathers-rest');
 
@@ -29,6 +32,8 @@ module.exports = function() {
     r.connect({
       host: config.get('rdb_host'),
       port: config.get('rdb_port'),
+      authKey: rauth,
+      ssl: ssl,
       db: config.get('rdb_db')
     }, function(err, conn) {
         if (err) throw err;
