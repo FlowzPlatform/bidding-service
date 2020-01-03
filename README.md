@@ -1,4 +1,4 @@
-# Bidding_Backend
+# Bidding-Service
 
 This is a node based feathers JS service built for creating auction and place bid for various product.Using this CRUD service user can consume the API from anywhere and create auction and place bid for particuler auction.Currently the project has scope of placing an instant bid or generate auto-bidding by specifying max amount or time.All the data will be stored in Rethink db database.Following are the features that is covered in this version -
 
@@ -89,7 +89,7 @@ To run the project from docker you need to clone the project and run `docker-com
 
 ## Contributing
 
-If you find a bug or want to contribute to the code or documentation, you can help by submitting an [issue](http://172.16.99.216/npaul/autoBid_backend/issues) or a [pull request](http://172.16.99.216/npaul/autoBid_backend//pulls)
+If you find a bug or want to contribute to the code or documentation, you can help by submitting an [issue](https://github.com/FlowzPlatform/Bidding-Service/issues) or a [pull request](https://github.com/FlowzPlatform/Bidding-Service/pulls)
 
 ## License
 
