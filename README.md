@@ -70,7 +70,7 @@ API can be tested at - [Swagger](http://localhost:3030/docs/?url=/docs) - after 
   "isAuto" : "true", // true or false
   "cutOffTime" : "cutoff time in miliseconds",
   "numOfAllowedBids" : "number of max allowed bids",
-	"placedBidByBidder" : "Amount of placed bid by bidders "
+  "placedBidByBidder" : "Amount of placed bid by bidders"
 }
 ```
 
